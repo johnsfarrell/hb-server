@@ -18,7 +18,7 @@ dotenv.config();
 app.use(function (req, res, next) {
   res.set(
     "Access-Control-Allow-Origin",
-    "https://collegy.github.io",
+    "https://johnsfarrell.github.io",
     "http://localhost:3000"
   );
   res.set("Access-Control-Allow-Credentials", true);
@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
 app.use(
   cors({
     credentials: true,
-    origin: ["https://hb.github.io", "http://localhost:3000"],
+    origin: ["https://johnsfarrell.github.io", "http://localhost:3000"],
   })
 );
 
