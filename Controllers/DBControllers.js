@@ -1,6 +1,6 @@
 const {MongoClient} = require('mongodb');
 
-const url = "mongodb+srv://<username>:<password>@<your-cluster-url>/test?retryWrites=true&w=majority";
+const url = "mongodb+srv://admin:Olgl4r2lEkYvlr3c@cluster0.dxyq9u6.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 
 const db = async (req, res) => {
@@ -11,9 +11,10 @@ const db = async (req, res) => {
     switch(httpMethod)
     {
         case "GET":
+            const id = req.params.id;
             break;
         case "POST":
-            await postStory(client, req.body.title, req.body.story, req.body.views, new Date()).then((info) =>   
+            await postStory(client, req.body.title, req.body.story, req.body.views, String( new Date())).then((info) =>   
             {
                 res.status(200).json({result: info});
             })
