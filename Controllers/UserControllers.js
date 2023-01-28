@@ -16,7 +16,7 @@ const test = async (req, res) => {
       model: "text-davinci-003",
       prompt: generatePrompt(name, activity, location),
       temperature: 0.9,
-      max_tokens: 4096,
+      max_tokens: 4000,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch(error) {
