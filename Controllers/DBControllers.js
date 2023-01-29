@@ -78,6 +78,21 @@ const getStory = async (req, res) => {
     });
 };
 
+const incrementStoryViews = async (req, res) => {
+  await client.connect();
+  const id = req.params.id;
+  client
+    .db("stories")
+    .collection("stories")
+    .findOne({ id: parseInt(id) })
+    .then((info) => {
+      res.status(200).json({ result: info });
+    })
+    .catch((err) => {
+      res.status(400);
+    });
+};
+
 const getRecentStory = async (req, res) => {
   try {
     await client.connect();
@@ -86,6 +101,7 @@ const getRecentStory = async (req, res) => {
       .collection("stories")
       .find({})
       .sort({ date: -1 })
+      .limit(1)
       .toArray();
     res.status(200).json({ result: info });
   } catch (err) {
@@ -113,4 +129,5 @@ module.exports = {
   getRecentStory,
   getPopularStory,
   getStory,
+  incrementStoryViews,
 };
