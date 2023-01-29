@@ -1,60 +1,65 @@
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require("mongodb");
 
-const url = "mongodb+srv://admin:Olgl4r2lEkYvlr3c@cluster0.dxyq9u6.mongodb.net/?retryWrites=true&w=majority";
+const url =
+  "mongodb+srv://admin1:1234@cluster0.dxyq9u6.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 
 const db = async (req, res) => {
-   const httpMethod = req.method;
+  const httpMethod = req.method;
 
-   try{
+  try {
     await client.connect();
-    switch(httpMethod)
-    {
-        case "GET":
-            const id = req.params.id;
-            if(!id){
-                (await client.db("stories").collection("stories").find()).then((info) =>
-                {
-                    res.status(200).json({result: info});
-                })
+    switch (httpMethod) {
+      case "GET":
+        const id = req.params.id;
+        if (!id) {
+          (await client.db("stories").collection("stories").find()).then(
+            (info) => {
+              res.status(200).json({ result: info });
             }
-            else{
-                (await client.db("stories").collection("stories").find({name: id})).then((info) =>
-                {
-                    res.status(200).json({result: info});
-                })
-            }
-            break;
-        case "POST":
-            (await postStory(client, req.body.title, req.body.story, req.body.views, String( new Date()))).then((info) =>   
-            {
-                res.status(200).json({result: info});
-            })
-            break;
-        default:
-            res.setHeader('Allow', ['GET', 'POST']);
-            res.status(405).end();
+          );
+        } else {
+          (
+            await client.db("stories").collection("stories").find({ name: id })
+          ).then((info) => {
+            res.status(200).json({ result: info });
+          });
+        }
+        break;
+      case "POST":
+        (
+          await postStory(
+            client,
+            req.body.title,
+            req.body.story,
+            req.body.views,
+            String(new Date())
+          )
+        ).then((info) => {
+          res.status(200).json({ result: info });
+        });
+        break;
+      default:
+        res.setHeader("Allow", ["GET", "POST"]);
+        res.status(405).end();
     }
-   } 
-   catch (e)
-   {
+  } catch (e) {
     console.error(e);
-   }
-   finally{
+  } finally {
     await client.close();
-
-   }
-    
+  }
 };
 
-async function postStory(client, title, story, views, date)
-{
-    const entry = { title: title, story: story, views: views, date: date};
-    const result = await client.db("stories").collection("stories").insertOne(entry);
-    console.log("entry added with id: " + String(result.insertedID))
-    return result;
+async function postStory(client, title, story, views, date) {
+  const entry = { title: title, story: story, views: views, date: date };
+  const result = await client
+    .db("stories")
+    .collection("stories")
+    .insertOne(entry);
+  console.log("entry added with id: " + String(result.insertedID));
+  return result;
 }
 
 module.exports = {
-    db,
+  db,
 };
