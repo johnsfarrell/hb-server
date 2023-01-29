@@ -85,6 +85,7 @@ const getRecentStory = async (req, res) => {
       .db("stories")
       .collection("stories")
       .find({})
+      .sort({ date: -1 })
       .toArray();
     res.status(200).json({ result: info });
   } catch (err) {
