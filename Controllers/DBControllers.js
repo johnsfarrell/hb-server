@@ -79,18 +79,19 @@ const getStory = async (req, res) => {
 };
 
 const getRecentStory = async (req, res) => {
-  await client.connect();
-  client
-    .db("stories")
-    .collection("stories")
-    .find({})
-    .then((info) => {
-      res.status(200).json({ result: info });
-    })
-    .catch((err) => {
-      res.status(400);
-    });
-  client.close();
+  try {
+    await client.connect();
+    const info = await client
+      .db("stories")
+      .collection("stories")
+      .find({})
+      .toArray();
+    res.status(200).json({ result: info });
+  } catch (err) {
+    res.status(400).json({ error: err });
+  } finally {
+    await client.close();
+  }
 };
 
 const getPopularStory = async (req, res) => {
