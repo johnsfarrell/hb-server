@@ -59,12 +59,15 @@ async function postStory(client, title, story, views, date) {
 const getStory = async (req, res) => {
   await client.connect();
   const id = req.params.id;
-  (await client.db("stories").collection("stories").find({ _id: id }).toArray())
-    .then((info) => {
-      res.status(200).json({ result: info });
-    })
-    .catch((err) => {
-      res.status(400);
+  await client
+    .db("stories")
+    .collection("stories")
+    .find({ _id: id }, null, {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(data);
+      }
     });
 };
 
