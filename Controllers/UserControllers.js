@@ -39,7 +39,7 @@ const test = async (req, res) => {
 function generatePrompt(name, activity, location) {
   const capitalName = name[0].toUpperCase() + name.slice(1).toLowerCase();
   return `Write a very scary ghost story about a person named 
-  ${capitalName} who likes to do ${activity} in ${location}. Also generate a title for the story`;
+  ${capitalName} who likes to do ${activity} in ${location}. Also start by generating a title for the story with the format: "Title: <title text>"`;
 }
 
 //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
