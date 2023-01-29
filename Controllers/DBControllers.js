@@ -43,8 +43,6 @@ const db = async (req, res) => {
     }
   } catch (e) {
     console.error(e);
-  } finally {
-    await client.close();
   }
 };
 
