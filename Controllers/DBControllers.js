@@ -59,7 +59,7 @@ async function postStory(client, title, story, views, date) {
 const getStory = async (req, res) => {
   await client.connect();
   const id = req.params.id;
-  (await client.db("stories").collection("stories").find({ _id: id }))
+  (await client.db("stories").collection("stories").find({ _id: id }).toArray())
     .then((info) => {
       res.status(200).json({ result: info });
     })
