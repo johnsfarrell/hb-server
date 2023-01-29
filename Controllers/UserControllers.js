@@ -9,6 +9,8 @@ const test = async (req, res) => {
   let activity = req.body.activity;
   let location = req.body.location;
 
+  req.setTimeout(0);
+
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
