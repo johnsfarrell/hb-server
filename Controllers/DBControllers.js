@@ -32,6 +32,7 @@ const db = async (req, res) => {
           req.body.title,
           req.body.story,
           req.body.views,
+          Math.floor(Math.random() * (10000000000 - 1000000000) + 1000000000),
           String(new Date())
         ).then((info) => {
           res.status(200).json({ result: info });
@@ -46,8 +47,14 @@ const db = async (req, res) => {
   }
 };
 
-async function postStory(client, title, story, views, date) {
-  const entry = { title: title, story: story, views: views, date: date };
+async function postStory(client, title, story, views, id, date) {
+  const entry = {
+    title: title,
+    story: story,
+    views: views,
+    id: id,
+    date: date,
+  };
   const result = await client
     .db("stories")
     .collection("stories")
@@ -62,7 +69,7 @@ const getStory = async (req, res) => {
   client
     .db("stories")
     .collection("stories")
-    .findOne({ _id: new ObjectId(id) })
+    .findOne({ id: id })
     .then((info) => {
       res.status(200).json({ result: info });
     })
