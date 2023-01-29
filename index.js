@@ -21,6 +21,7 @@ app.use(function (req, res, next) {
     "https://johnsfarrell.github.io",
     "http://localhost:3000"
   );
+  res.set("Access-Control-Allow-Credentials", false);
   next();
 });
 
