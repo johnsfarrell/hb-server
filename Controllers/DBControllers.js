@@ -6,7 +6,7 @@ const client = new MongoClient(url);
 
 const db = async (req, res) => {
   const httpMethod = req.method;
-
+  let id2 = Math.floor(Math.random() * (10000000000 - 1000000000) + 1000000000);
   try {
     await client.connect();
     switch (httpMethod) {
@@ -32,10 +32,10 @@ const db = async (req, res) => {
           req.body.title,
           req.body.story,
           req.body.views,
-          Math.floor(Math.random() * (10000000000 - 1000000000) + 1000000000),
+          id2,
           new Date()
         ).then((info) => {
-          res.status(200).json({ result: info });
+          res.status(200).json({ result: id2 });
         });
         break;
       default:
