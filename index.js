@@ -16,7 +16,11 @@ dotenv.config();
 //   () => console.log("Database connected")
 // );
 app.use(function (req, res, next) {
-  res.set("Access-Control-Allow-Origin", "*");
+  res.set(
+    "Access-Control-Allow-Origin",
+    "https://johnsfarrell.github.io",
+    "http://localhost:3000"
+  );
   res.set("Access-Control-Allow-Credentials", true);
   next();
 });
@@ -24,7 +28,7 @@ app.use(function (req, res, next) {
 app.use(
   cors({
     credentials: true,
-    origin: "*",
+    origin: ["https://johnsfarrell.github.io", "http://localhost:3000"],
   })
 );
 
