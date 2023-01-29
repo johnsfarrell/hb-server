@@ -56,6 +56,35 @@ async function postStory(client, title, story, views, date) {
   return result;
 }
 
+const getStory = async (req, res) => {
+  const id = req.params.id;
+  client
+    .db("stories")
+    .collection("stories")
+    .find({ _id: id })
+    .then((info) => {
+      res.status(200).json({ result: info });
+    })
+    .catch((err) => {
+      res.status(400);
+    });
+};
+
+const getRecentStory = async (req, res) => {
+  client
+    .db("stories")
+    .collection("stories")
+    .find()
+    .then((info) => {
+      res.status(200).json({ result: info });
+    })
+    .catch((err) => {
+      res.status(400);
+    });
+};
+
 module.exports = {
   db,
+  getRecentStory,
+  getStory,
 };

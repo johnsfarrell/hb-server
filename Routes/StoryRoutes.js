@@ -1,10 +1,17 @@
 const { test } = require("../Controllers/UserControllers");
-const { db } = require("../Controllers/DBControllers");
+const {
+  db,
+  getStory,
+  getRecentStory,
+} = require("../Controllers/DBControllers");
 
 const router = require("express").Router();
 
 router.post("/test", test);
-router.get("/getstory/:id", db);
+router.get("/getstory/:id", getStory);
+router.get("/getrecentstory", getRecentStory);
+router.get("/getpopularstory", getPopularStory);
+
 router.post("/poststory", db);
 
 module.exports = router;
