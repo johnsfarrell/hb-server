@@ -12,12 +12,22 @@ const test = async (req, res) => {
   let location = req.body.location;
 
   try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: generatePrompt(name, activity, location),
-      temperature: 0.9,
-      max_tokens: 4000,
-    });
+      const completion = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: generatePrompt(name, activity, location),
+        temperature: 0.9,
+        max_tokens: 4000,
+      });
+      while(!(completion.data.choices[0].text.indexOf("Title:") > 0))
+      {
+        const completion = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: generatePrompt(name, activity, location),
+          temperature: 0.9,
+          max_tokens: 4000,
+        });
+      }
+    
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch(error) {
     // Consider adjusting the error handling logic for your use case

@@ -12,9 +12,21 @@ const db = async (req, res) => {
     {
         case "GET":
             const id = req.params.id;
+            if(!id){
+                (await client.db("stories").collection("stories").find()).then((info) =>
+                {
+                    res.status(200).json({result: info});
+                })
+            }
+            else{
+                (await client.db("stories").collection("stories").find({name: id})).then((info) =>
+                {
+                    res.status(200).json({result: info});
+                })
+            }
             break;
         case "POST":
-            await postStory(client, req.body.title, req.body.story, req.body.views, String( new Date())).then((info) =>   
+            (await postStory(client, req.body.title, req.body.story, req.body.views, String( new Date()))).then((info) =>   
             {
                 res.status(200).json({result: info});
             })
