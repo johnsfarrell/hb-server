@@ -33,7 +33,7 @@ const db = async (req, res) => {
           req.body.story,
           req.body.views,
           Math.floor(Math.random() * (10000000000 - 1000000000) + 1000000000),
-          String(new Date())
+          new Date()
         ).then((info) => {
           res.status(200).json({ result: info });
         });
