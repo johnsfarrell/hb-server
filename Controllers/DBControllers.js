@@ -84,7 +84,11 @@ const incrementStoryViews = async (req, res) => {
   client
     .db("stories")
     .collection("stories")
-    .findOne({ id: parseInt(id) })
+    .findOneAndUpdate(
+      { id: parseInt(id) },
+      { $inc: { views: 1 } },
+      { returnOriginal: false }
+    )
     .then((info) => {
       res.status(200).json({ result: info });
     })
