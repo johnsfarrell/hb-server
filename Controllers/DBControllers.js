@@ -62,7 +62,7 @@ const getStory = async (req, res) => {
   await client
     .db("stories")
     .collection("stories")
-    .find({ _id: id }, null, {}, function (err, data) {
+    .find({ _id: id }, function (err, data) {
       if (err) {
         console.log(err);
       } else {
