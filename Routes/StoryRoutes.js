@@ -3,6 +3,7 @@ const {
   db,
   getStory,
   getRecentStory,
+  getPopularStory,
 } = require("../Controllers/DBControllers");
 
 const router = require("express").Router();

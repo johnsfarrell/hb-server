@@ -85,8 +85,24 @@ const getRecentStory = async (req, res) => {
     });
 };
 
+const getPopularStory = async (req, res) => {
+  client
+    .db("stories")
+    .collection("stories")
+    .find()
+    .sort({ views: -1 })
+    .limit(3)
+    .then((info) => {
+      res.status(200).json({ result: info });
+    })
+    .catch((err) => {
+      res.status(400);
+    });
+};
+
 module.exports = {
   db,
   getRecentStory,
+  getPopularStory,
   getStory,
 };
