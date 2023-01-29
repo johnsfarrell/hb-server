@@ -25,7 +25,12 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: ["https://johnsfarrell.github.io", "http://localhost:3000"],
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());
