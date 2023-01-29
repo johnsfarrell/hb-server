@@ -69,7 +69,7 @@ const getStory = async (req, res) => {
   client
     .db("stories")
     .collection("stories")
-    .findOne({ id: id.parseInt() })
+    .findOne({ id: parseInt(id) })
     .then((info) => {
       res.status(200).json({ result: info });
     })
@@ -79,18 +79,21 @@ const getStory = async (req, res) => {
 };
 
 const getRecentStory = async (req, res) => {
+  await client.connect();
   client
     .db("stories")
     .collection("stories")
-    .find()
+    .find({})
     .sort({ date: -1 })
     .limit(10)
+    .toArray()
     .then((info) => {
       res.status(200).json({ result: info });
     })
     .catch((err) => {
       res.status(400);
     });
+  client.close();
 };
 
 const getPopularStory = async (req, res) => {
