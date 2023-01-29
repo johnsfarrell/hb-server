@@ -101,7 +101,7 @@ const getRecentStory = async (req, res) => {
       .collection("stories")
       .find({})
       .sort({ date: -1 })
-      .limit(1)
+      .limit(10)
       .toArray();
     res.status(200).json({ result: info });
   } catch (err) {
@@ -110,18 +110,19 @@ const getRecentStory = async (req, res) => {
 };
 
 const getPopularStory = async (req, res) => {
-  client
-    .db("stories")
-    .collection("stories")
-    .find()
-    .sort({ views: -1 })
-    .limit(3)
-    .then((info) => {
-      res.status(200).json({ result: info });
-    })
-    .catch((err) => {
-      res.status(400);
-    });
+  try {
+    await client.connect();
+    const info = await client
+      .db("stories")
+      .collection("stories")
+      .find({})
+      .sort({ views: -1 })
+      .limit(3)
+      .toArray();
+    res.status(200).json({ result: info });
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
 };
 
 module.exports = {
