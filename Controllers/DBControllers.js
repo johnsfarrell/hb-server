@@ -27,14 +27,12 @@ const db = async (req, res) => {
         }
         break;
       case "POST":
-        (
-          await postStory(
-            client,
-            req.body.title,
-            req.body.story,
-            req.body.views,
-            String(new Date())
-          )
+        postStory(
+          client,
+          req.body.title,
+          req.body.story,
+          req.body.views,
+          String(new Date())
         ).then((info) => {
           res.status(200).json({ result: info });
         });
