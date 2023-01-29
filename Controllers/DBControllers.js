@@ -105,7 +105,7 @@ const getRecentStory = async (req, res) => {
       .collection("stories")
       .find({})
       .sort({ date: -1 })
-      .limit(10)
+      .limit(6)
       .toArray();
     res.status(200).json({ result: info });
   } catch (err) {
