@@ -1,7 +1,6 @@
 const { MongoClient, ObjectId } = require("mongodb");
 
-const url =
-  "mongodb+srv://admin1:1234@cluster0.dxyq9u6.mongodb.net/?retryWrites=true&w=majority";
+const url = process.env.MONGODBURL;
 const client = new MongoClient(url);
 
 const db = async (req, res) => {
