@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 
 const url =
   "mongodb+srv://admin1:1234@cluster0.dxyq9u6.mongodb.net/?retryWrites=true&w=majority";
@@ -69,7 +69,6 @@ const getStory = async (req, res) => {
     .catch((err) => {
       res.status(400);
     });
-  client.close();
 };
 
 const getRecentStory = async (req, res) => {
