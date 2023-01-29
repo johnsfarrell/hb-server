@@ -69,7 +69,7 @@ const getStory = async (req, res) => {
   client
     .db("stories")
     .collection("stories")
-    .findOne({ id: id })
+    .findOne({ id: id.parseInt() })
     .then((info) => {
       res.status(200).json({ result: info });
     })
